@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>project</title>
+<style>
+table{
+width:100%;
+}
+.form{
+margin-bottom: 20px;
+}
+</style>
+</head>
+<body>
+
+<h1>students Data</h1>
+<div class="form">
+<form onsubmit="addstudent(event)">
+<input type="text" placeholder="name"
+requried id="name"/>
+<input type="text" placeholder="email"
+requried id="email"/>
+<input type="text" placeholder="city"
+requried id="city"/>
+<button type="submit">Add Student</button>
+</form>
+</div>
+
+<div class="form">
+<input type="text" placeholder="Enter Key Query" id="searchquery" onkeyup="searchstudent()"/>
+</div>
+
+<table border="1" class="table" cellspacing="0">
+<thead>
+<tr>
+<th>SrNo</th>
+<th>name</th>
+<th>email</th>
+<th>city</th>
+</tr>
+</thead>
+
+<tbody class="tdata">
+<tr>
+<td>1</td>
+<td>saiteja</td>
+<td>katakamsaiteja144@gmail.com</td>
+<td>Hyderabad</td>
+</tr>
+</tbody>
+</table>
+<script>
+let students = [
+{
+name:'saiteja',
+email:'katakamsaiteja144@gmail.com',
+city:'Hyderabad',
+},
+{
+name:'nikil',
+email:'nikil@gmail.com',
+city:'Warangal',
+},
+{
+name:'naveen',
+email:'Naveen@gmail.com',
+city:'Delhi',
+}
+];
+
+//console.log(students);
+
+//Dispaly the object on html
+function displayData(studentArray){
+let tableData = "";
+let SrNo = 1;
+studentArray.forEach((student)=>{
+let row = ` 
+<tr>
+<td>${SrNo}</td>
+<td>${student.name}</td>
+<td>${student.email}</td>
+<td>${student.city}</td>
+</tr>
+`;
+
+tableData += row;
+SrNo++;
+})
+document.getElementsByClassName("tdata")[0].
+innerHTML = tableData;
+}
+
+//adding student
+function addstudent(event){
+event.preventDefault();
+
+let name = document.getElementById('name').value;
+let email = document.getElementById('email').value;
+let city = document.getElementById('city').value;
+
+let newstudent = {};
+
+newstudent.name = name;
+newstudent.email = email;
+newstudent.city = city;
+
+students.push(newstudent);
+displayData(students);
+// console.log(newstudent);
+}
+
+//Dyamically Search for student
+function searchstudent(){
+let query = document.getElementById('searchquery').value;
+let newArray = students.filter((student)=>{
+return student.name.toLowerCase().indexOf(query.toLowerCase()) != -1;
+});
+displayData(newArray);
+//console.log(newArray);
+//console.log(query);
+}
+
+displayData(students);
+</script>
+</body>
+</html>
